@@ -1,12 +1,17 @@
+const dotenv = require("dotenv");
 const express = require("express");
 const graphqlHTTP = require("express-graphql");
 const schema = require("./schema/schema");
 const mongoose = require("mongoose");
 
+dotenv.config();
 const app = express();
 
 //Connect to mlab database
-// mongoose.connect("")
+mongoose.connect(process.env.MONGO_DB_URI);
+mongoose.connection.once("open", () => {
+  console.log("connected to database");
+});
 
 //Middleware
 app.use(
