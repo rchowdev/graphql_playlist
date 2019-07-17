@@ -3,14 +3,14 @@ import {graphql} from "react-apollo";
 import {getBooksQuery} from "../queries/queries";
 
 class BookList extends Component {
-  displayBooks() {
+  displayBooks = () => {
     const {data} = this.props;
     return data.loading ? (
       <div>Loading...</div>
     ) : (
       data.books.map(book => <li key={book.id}>{book.name}</li>)
     );
-  }
+  };
 
   render() {
     return (
