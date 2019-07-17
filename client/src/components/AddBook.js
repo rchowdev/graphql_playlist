@@ -1,6 +1,10 @@
 import React, {Component} from "react";
 import {graphql, compose} from "react-apollo";
-import {getAuthorsQuery, addBookMutation} from "../queries/queries";
+import {
+  getBooksQuery,
+  getAuthorsQuery,
+  addBookMutation
+} from "../queries/queries";
 
 class AddBook extends Component {
   state = {
@@ -30,7 +34,15 @@ class AddBook extends Component {
 
   submitForm = e => {
     e.preventDefault();
-    console.log(this.state);
+    const {name, genre, authorId} = this.state;
+    this.props.addBookMutation({
+      variables: {
+        name,
+        genre,
+        authorId
+      },
+      refetchQueries: [{query: getBooksQuery}] //Refetch the query. Props is updated. Book list component rerenders
+    });
   };
 
   render() {
